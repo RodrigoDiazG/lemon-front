@@ -1,7 +1,5 @@
 # Use a node image
 FROM node AS builder
-# Install yarn
-RUN npm install yarn -g
 # Define the work directory
 WORKDIR /limoneno
 # Copy the project
