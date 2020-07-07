@@ -1,0 +1,55 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: lemon-frontend-lb
+  namespace: lemontech
+  labels:
+    app: lemon-frontend
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 80
+  selector:
+    app: lemon-frontend
+    
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lemon-frontend
+  namespace: lemontech
+  labels:
+    app: lemon-frontend
+spec:
+  replicas: 1
+  strategy:
+  selector:
+    matchLabels:
+      app: lemon-frontend
+  template:
+    metadata:
+      labels:
+        app: lemon-frontend
+    spec:
+      containers:
+        - name: lemon-frontend
+          image: synopscl/test-lem-front
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+            
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: lemon-front-hpa
+  namespace: lemontech
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: lemon-frontend
+  minReplicas: 1
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 10             
