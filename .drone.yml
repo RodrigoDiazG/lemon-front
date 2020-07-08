@@ -19,6 +19,7 @@ steps:
   image: synopscl/lemon-aws-deploy:1.1
   environment:
      IMAGE: test-lem-front
+     PROYECTO: lemon-front
      TAG: ${DRONE_BUILD_NUMBER}
      AWS_ACCESS_KEY_ID:
        from_secret: AWS_ACCESS_KEY_ID
