@@ -16,7 +16,7 @@ steps:
    tags: ${DRONE_BUILD_NUMBER}
 
 - name: install
-  image: synopscl/lemon-aws-deploy:1.0
+  image: synopscl/lemon-aws-deploy:1.1
   environment:
      IMAGE: test-lem-front
      TAG: ${DRONE_BUILD_NUMBER}
