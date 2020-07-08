@@ -34,10 +34,15 @@ spec:
     spec:
       containers:
         - name: lemon-frontend
-          image: synopscl/test-lem-front
+          image: CONTAINER_IMAGE
           imagePullPolicy: Always
           ports:
             - containerPort: 80
+          resources:
+            limits:
+              cpu: 500m
+            requests:
+              cpu: 200m    
             
 ---
 apiVersion: autoscaling/v1
@@ -51,5 +56,5 @@ spec:
     kind: Deployment
     name: lemon-frontend
   minReplicas: 1
-  maxReplicas: 5
-  targetCPUUtilizationPercentage: 10             
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 50             
