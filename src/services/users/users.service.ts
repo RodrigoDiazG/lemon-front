@@ -61,12 +61,14 @@ export default class UserService {
                 email: email,
                 password: password
             }).subscribe(response => {
+                console.log(response.data.token);
                 let data = response.data;
                 RestService.setJWT(data.token);
                 this.user = new User(data.user);
                 observe.next(this.user);
                 observe.complete();
             }, error => {
+                console.log(error);
                 observe.error(error);
                 observe.complete();
             });
