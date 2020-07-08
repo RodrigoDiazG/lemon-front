@@ -4,7 +4,16 @@ type: docker
 name: frontend
 
 steps:
-
+- name: publish  
+  image: plugins/docker
+  settings:
+   repo: synopscl/test-lem-front
+   username:
+      from_secret: docker_username
+   password:
+      from_secret: docker_password
+   dockerfile: Dockerfile
+   tags: ${DRONE_BUILD_NUMBER}
 
 - name: install
   image: synopscl/lemon-aws-deploy:1.1
